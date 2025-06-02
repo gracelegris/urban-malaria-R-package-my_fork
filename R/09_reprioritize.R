@@ -200,7 +200,7 @@ add_mean_tpr <- function(extracted_data_plus) {
   # calculate the mean TPR, excluding NA values
   mean_tpr <- mean(extracted_data_plus$u5_tpr_rdt, na.rm = TRUE)
 
-  # impute missing values with the mean
+  # impute missing values with the mean tpr
   extracted_data_plus$u5_tpr_rdt[is.na(extracted_data_plus$u5_tpr_rdt)] <- mean_tpr
 
   return(extracted_data_plus)
