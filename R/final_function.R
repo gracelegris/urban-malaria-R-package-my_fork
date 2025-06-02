@@ -49,6 +49,8 @@ reprioritize <- function(state_name, shapefile_path, tpr_data_path, tpr_data_col
     tpr_data <- get_spatial_means(tpr_data_path, state_shapefile, tpr_data_col_name)
     # merge
     extracted_data_plus <- tpr_merge(tpr_data, extracted_data, state_name)
+    # for tpr values that are missing in the merged extracted data, impute the column average
+    extracted_data_plus <- add_mean_tpr(extracted_data_plus)
     extracted_data_plus <- clean_merge(extracted_data_plus)
   }
 

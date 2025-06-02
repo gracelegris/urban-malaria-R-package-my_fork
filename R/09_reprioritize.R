@@ -171,7 +171,18 @@ get_spatial_means <- function(tpr_data_path, state_shapefile, tpr_data_col_name 
       imputed_value <- mean(neighbor_values, na.rm = TRUE)
 
       if (is.na(imputed_value)) {
+        # fallback to column mean
         imputed_value <- mean(col_data, na.rm = TRUE)
+
+        # print the ward name if available
+        if ("ward" %in% names(data)) {
+          ward_name <- data$ward[index]
+          print(paste("Warning: Neighbor values all NA for ward:", ward_name,
+                      "- using overall mean for imputation."))
+        } else {
+          print(paste("Warning: Neighbor values all NA for index", index,
+                      "- using overall mean for imputation."))
+        }
       }
 
       col_data[index] <- imputed_value
@@ -183,6 +194,16 @@ get_spatial_means <- function(tpr_data_path, state_shapefile, tpr_data_col_name 
   }
 
   return(data)
+}
+
+add_mean_tpr <- function(extracted_data_plus) {
+  # calculate the mean TPR, excluding NA values
+  mean_tpr <- mean(extracted_data_plus$u5_tpr_rdt, na.rm = TRUE)
+
+  # impute missing values with the mean
+  extracted_data_plus$u5_tpr_rdt[is.na(extracted_data_plus$u5_tpr_rdt)] <- mean_tpr
+
+  return(extracted_data_plus)
 }
 
 settlement_type_merge <- function(settlement_block_shp, extracted_data, state_name) {
