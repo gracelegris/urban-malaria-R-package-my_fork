@@ -33,7 +33,9 @@ Imports:
     grid,
     gridExtra,
     janitor,
-    tidyr
+    tidyr,
+    terra,
+    readr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

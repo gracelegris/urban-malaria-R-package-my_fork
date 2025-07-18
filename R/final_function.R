@@ -48,9 +48,9 @@ reprioritize <- function(state_name, shapefile_path, tpr_data_path, tpr_data_col
     # apply spatial mean function to handle missing values in tpr data
     tpr_data <- get_spatial_means(tpr_data_path, state_shapefile, tpr_data_col_name)
     # merge
-    extracted_data_plus <- tpr_merge(tpr_data, extracted_data, state_name)
+    extracted_data_plus <- tpr_merge(tpr_data, extracted_data, state_name, tpr_data_col_name)
     # for tpr values that are missing in the merged extracted data, impute the column average tpr
-    extracted_data_plus <- add_mean_tpr(extracted_data_plus)
+    extracted_data_plus <- add_mean_tpr(extracted_data_plus, tpr_data_col_name)
     extracted_data_plus <- clean_merge(extracted_data_plus)
   }
 
@@ -78,7 +78,7 @@ reprioritize <- function(state_name, shapefile_path, tpr_data_path, tpr_data_col
 
   # calculate composite scores
   message("Calculating composite malaria risk scores...")
-  malaria_risk_scores <- calculate_malaria_risk_scores(extracted_data_plus, raster_paths, include_settlement_type, include_u5_tpr_data)
+  malaria_risk_scores <- calculate_malaria_risk_scores(extracted_data_plus, raster_paths, include_settlement_type, include_u5_tpr_data, tpr_data_col_name)
 
   # rank wards by risk score
   message("Ranking wards by risk score...")

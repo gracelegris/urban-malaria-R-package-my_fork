@@ -137,12 +137,12 @@ prioritize_wards <- function(data, population_col, rank_col, class_col, ward_col
 #'
 #' @import dplyr
 #' @export
-tpr_merge <- function(tpr_data, extracted_data, state_name) {
+tpr_merge <- function(tpr_data, extracted_data, state_name, tpr_data_col_name) {
 
   extracted_data <- extracted_data %>% mutate(WardCode = as.character(WardCode))
   tpr_data <- tpr_data %>% mutate(WardCode = as.character(WardCode))
   extracted_data_plus <- extracted_data %>%
-    left_join(tpr_data %>% dplyr::select(WardCode, WardName, LGA, u5_tpr_rdt), by = "WardCode")
+    left_join(tpr_data %>% dplyr::select(WardCode, WardName, LGA, tpr_data_col_name), by = "WardCode")
 }
 
 get_spatial_means <- function(tpr_data_path, state_shapefile, tpr_data_col_name = NULL) {
@@ -196,12 +196,12 @@ get_spatial_means <- function(tpr_data_path, state_shapefile, tpr_data_col_name 
   return(data)
 }
 
-add_mean_tpr <- function(extracted_data_plus) {
+add_mean_tpr <- function(extracted_data_plus, tpr_data_col_name) {
   # calculate the mean TPR, excluding NA values
-  mean_tpr <- mean(extracted_data_plus$u5_tpr_rdt, na.rm = TRUE)
+  mean_tpr <- mean(extracted_data_plus[[tpr_data_col_name]], na.rm = TRUE)
 
-  # impute missing values with the mean tpr
-  extracted_data_plus$u5_tpr_rdt[is.na(extracted_data_plus$u5_tpr_rdt)] <- mean_tpr
+  # impute missing values with the mean TPR
+  extracted_data_plus[[tpr_data_col_name]][is.na(extracted_data_plus[[tpr_data_col_name]])] <- mean_tpr
 
   return(extracted_data_plus)
 }
