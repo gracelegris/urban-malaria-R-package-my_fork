@@ -445,6 +445,9 @@ create_reprioritization_map <- function(state_name, state_shapefile, itn_dir,
                    gp = gpar(fontsize = 12, fontface = "bold", hjust = 0.5))
   )
 
+  # save the ranked wards in the state-specific folder
+  write.csv(ranked_wards, file.path(state_folder, paste0(state_name, "_ranked_wards.csv")))
+
   # save the plots in the state-specific folder
   ggsave(filename = file.path(state_folder, paste0(state_name, "_risk_map.pdf")),
          plot = risk_map, width = 12, height = 8)

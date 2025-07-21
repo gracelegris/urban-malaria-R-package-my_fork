@@ -144,7 +144,7 @@ results <- reprioritize(
 results <- reprioritize(
   state_name = "Osun",
   shapefile_path = file.path(PackageDataDir, "shapefiles"),
-  tpr_data_path = file.path(PackageDataDir, "TPR/osun_approach1.csv"),
+  tpr_data_path = file.path(PackageDataDir, "TPR/osuntpr_updated.csv"),
   tpr_data_col_name = "u5_tpr_rdt",
   itn_dir = file.path(PackageDataDir, "ITN/pbi_distribution_Osun_clean.xlsx"),
   raster_paths = list(
