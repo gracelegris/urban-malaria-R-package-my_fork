@@ -144,8 +144,8 @@ results <- reprioritize(
 results <- reprioritize(
   state_name = "Osun",
   shapefile_path = file.path(PackageDataDir, "shapefiles"),
-  tpr_data_path = file.path(PackageDataDir, "TPR/osuntpr_updated.csv"),
-  tpr_data_col_name = "u5_tpr_rdt",
+  tpr_data_path = file.path(PackageDataDir, "TPR/osun_approach2.csv"),
+  tpr_data_col_name = "tpr_approach2",
   itn_dir = file.path(PackageDataDir, "ITN/pbi_distribution_Osun_clean.xlsx"),
   raster_paths = list(
     h2o_distance_path = file.path(RastersDir, "distance_to_water_bodies/distance_to_water.tif"),
@@ -165,8 +165,8 @@ results <- reprioritize(
 results <- reprioritize(
   state_name = "Kwara",
   shapefile_path = file.path(PackageDataDir, "shapefiles"),
-  tpr_data_path = file.path(PackageDataDir, "TPR/kwaratpr_updated.csv"),
-  tpr_data_col_name = "u5_tpr_rdt",
+  tpr_data_path = file.path(PackageDataDir, "TPR/kwara_approach2.csv"),
+  tpr_data_col_name = "tpr_approach2",
   itn_dir = file.path(PackageDataDir, "ITN/pbi_distribution_Kwara_clean.xlsx"),
   raster_paths = list(
     h2o_distance_path = file.path(RastersDir, "distance_to_water_bodies/distance_to_water.tif"),
@@ -186,8 +186,8 @@ results <- reprioritize(
 results <- reprioritize(
   state_name = "Adamawa",
   shapefile_path = file.path(PackageDataDir, "shapefiles"),
-  tpr_data_path = file.path(PackageDataDir, "TPR/adamawatpr_updated.csv"),
-  tpr_data_col_name = "u5_tpr_rdt",
+  tpr_data_path = file.path(PackageDataDir, "TPR/adamawa_approach2.csv"),
+  tpr_data_col_name = "tpr_approach2",
   itn_dir = file.path(PackageDataDir, "ITN/pbi_distribution_Adamawa_clean.xlsx"),
   raster_paths = list(
     h2o_distance_path = file.path(RastersDir, "distance_to_water_bodies/distance_to_water.tif"),
