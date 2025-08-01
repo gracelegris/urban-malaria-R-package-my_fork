@@ -71,13 +71,18 @@ calculate_malaria_risk_scores <- function(extracted_data_plus, raster_paths, inc
     flood_path = "flood"
   )
   # check which files exist and collect their labels
+  # supplied_variables <- sapply(names(raster_paths), function(var) {
+  #   if (file.exists(raster_paths[[var]])) {
+  #     return(possible_variables[[var]])
+  #   } else {
+  #     return(NULL)
+  #   }
+  # }, USE.NAMES = FALSE)
+
   supplied_variables <- sapply(names(raster_paths), function(var) {
-    if (file.exists(raster_paths[[var]])) {
-      return(possible_variables[[var]])
-    } else {
-      return(NULL)
-    }
+    return(possible_variables[[var]])
   }, USE.NAMES = FALSE)
+
   # remove NULL values from the list
   supplied_variables <- supplied_variables[!sapply(supplied_variables, is.null)]
   covariates = paste(supplied_variables)

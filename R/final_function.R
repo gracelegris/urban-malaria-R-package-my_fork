@@ -65,7 +65,7 @@ reprioritize <- function(state_name, shapefile_path, tpr_data_path, tpr_data_col
     extracted_data_plus <- clean_merge(extracted_data_plus)
   }
 
-  # remove any columns that are exactly duplicated
+  # remove any rows that are exactly duplicated
   extracted_data_plus <- extracted_data_plus[!duplicated(extracted_data_plus), ]
 
   # save complete extracted data
@@ -80,6 +80,9 @@ reprioritize <- function(state_name, shapefile_path, tpr_data_path, tpr_data_col
   message("Calculating composite malaria risk scores...")
   malaria_risk_scores <- calculate_malaria_risk_scores(extracted_data_plus, raster_paths, include_settlement_type, include_u5_tpr_data, tpr_data_col_name)
 
+  # save risk scores
+  #write_xlsx(malaria_risk_scores, path = file.path(SaveDir, paste0(state_name, "_unweighted_variables.xlsx")))
+
   # rank wards by risk score
   message("Ranking wards by risk score...")
   ranked_wards <- rank(malaria_risk_scores)
@@ -87,7 +90,7 @@ reprioritize <- function(state_name, shapefile_path, tpr_data_path, tpr_data_col
   # run reprioritization analysis
   message("Reprioritizing and creating maps...")
   maps <- create_reprioritization_map(state_name, state_shapefile, itn_dir, extracted_data_plus, ranked_wards,
-                                      map_output_dir, include_settlement_type, include_u5_tpr_data, scenarios)
+                                      map_output_dir, include_settlement_type, include_u5_tpr_data, scenarios, tpr_data_col_name)
 
   message("Reprioritization process for ", state_name, " completed.")
 

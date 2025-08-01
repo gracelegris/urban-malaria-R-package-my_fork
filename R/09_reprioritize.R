@@ -318,7 +318,7 @@ settlement_type_merge <- function(settlement_block_shp, extracted_data, state_na
 #' @export
 create_reprioritization_map <- function(state_name, state_shapefile, itn_dir,
                                         extracted_data_plus, ranked_wards, map_output_dir,
-                                        include_settlement_type, include_u5_tpr_data, scenarios) {
+                                        include_settlement_type, include_u5_tpr_data, scenarios, tpr_data_col_name) {
 
   # load and clean variables
   state_variables <- extracted_data_plus %>%
@@ -348,6 +348,9 @@ create_reprioritization_map <- function(state_name, state_shapefile, itn_dir,
   if (!dir.exists(state_folder)) {
     dir.create(state_folder)
   }
+
+  # save combined_wards2 for use in a graph
+  write.csv(combined_wards2, file.path(state_folder, paste0(state_name, "_", tpr_data_col_name, ".csv")))
 
   # run prioritized wards only for user-selected scenarios, get number of reprioritized wards in each scenario
   prioritized_wards <- list()
@@ -384,12 +387,16 @@ create_reprioritization_map <- function(state_name, state_shapefile, itn_dir,
   )
 
   # check which files exist and collect their labels
+  # existing_variables <- sapply(names(raster_paths), function(var) {
+  #   if (file.exists(raster_paths[[var]])) {
+  #     return(variable_labels[[var]])
+  #   } else {
+  #     return(NULL)
+  #   }
+  # }, USE.NAMES = FALSE)
+
   existing_variables <- sapply(names(raster_paths), function(var) {
-    if (file.exists(raster_paths[[var]])) {
-      return(variable_labels[[var]])
-    } else {
-      return(NULL)
-    }
+    return(variable_labels[[var]])
   }, USE.NAMES = FALSE)
 
   # remove NULL values from the list
